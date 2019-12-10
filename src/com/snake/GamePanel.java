@@ -50,18 +50,6 @@ public class GamePanel extends JPanel implements Runnable {
         this.setVisible(true);
     }
 
-    /**
-     * public void start() {
-     * running = true;
-     * if (Score > HighScore)
-     * HighScore = Score;
-     * Score = 0;
-     * Time = 0;
-     * stopwatch = new Stopwatch();
-     * State = STATE.GAME;
-     * }
-     **/
-
     public void stop() {
         running = false;
         try {
@@ -111,6 +99,7 @@ public class GamePanel extends JPanel implements Runnable {
                 }
             }
         }
+
         //Collision on snake border body part
         for (int i = 0; i < snake.size(); i++) {
             if (xCoor == snake.get(i).getxCoor() && yCoor == snake.get(i).getyCoor()) {
@@ -130,32 +119,6 @@ public class GamePanel extends JPanel implements Runnable {
     }
 
     public void paint(Graphics g) {
-        /**
-         g.clearRect(0, 0, WIDTH, HEIGHT);
-         g.setColor(Color.black);
-         g.fillRect(0, 0, WIDTH, HEIGHT);
-
-         for (int i = 0; i < WIDTH / 10; i++) {
-         g.drawLine(i * 10, 0, i * 10, HEIGHT);
-         }
-         for (int i = 0; i < HEIGHT / 10; i++) {
-         g.drawLine(0, i * 10, HEIGHT, i * 10);
-         }
-
-         g.setColor(Color.black);
-         g.fillRect(200, 100, 300, 100);
-         g.fillRect(200, 230, 300, 100);
-         g.fillRect(200, 360, 300, 100);
-         Font fnt0 = new Font("arail", Font.BOLD, 45);
-         g.setFont(fnt0);
-         g.setColor(Color.yellow);
-         g.drawString("Snake Game", WIDTH / 3, 150);
-         Font fnt1 = new Font("arail", Font.BOLD, 30);
-         g.setFont(fnt1);
-         g.setColor(Color.yellow);
-         g.drawString("START GAME", (WIDTH / 3) + 10, 280);
-         g.drawString("QUIT GAME", (WIDTH / 3) + 20, 410);
-         **/
         if (State == STATE.GAME) {
             String s = format("HighScore %d  Score %d  Time %.2f", HighScore, Score, stopwatch.elapsedTime());
             g.setColor(Color.black);
@@ -167,13 +130,12 @@ public class GamePanel extends JPanel implements Runnable {
             for (int i = 0; i < apples.size(); i++) {
                 g.setColor(appleColor);
                 apples.get(i).draw(g);
-
-                g.setColor(Color.CYAN);
-                Font fnt2 = new Font("arial", Font.PLAIN, 15);
-                g.setFont(fnt2);
-                g.drawString(s, 15, 15);
-
             }
+            g.setColor(Color.CYAN);
+            Font fnt2 = new Font("arial", Font.PLAIN, 15);
+            g.setFont(fnt2);
+            g.drawString(s, 15, 15);
+
         }
     }
 
@@ -182,7 +144,6 @@ public class GamePanel extends JPanel implements Runnable {
         while (running) {
             tick();
             repaint();
-
             try {
                 Thread.sleep(Time);
             } catch (Exception e) {
